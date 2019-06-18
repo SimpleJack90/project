@@ -1,3 +1,43 @@
+
+<?php
+
+require_once '../config/database.php';
+require_once '../objects/users.php';
+
+
+ $error;
+
+if(isset($_POST['submit'])){
+
+    $error="Both fields are required.";
+
+    if(!empty($_POST['email']) && !empty($_POST['password']) && isset($_POST['email']) && isset($_POST['password']) ){
+
+        $email=trim($_POST['email']);
+        $password=trim($_POST['password']);
+
+        $database_connection=new DatabaseConnection;
+
+        $db=$database_connection->getConnection();
+        $user= new Users($db);
+        
+
+       $stmt= $user->CheckIfLogged($email,$password);
+
+        $num=$stmt->rowCount();
+
+        if($num>0){
+            header('Location: articles.php');
+            $error="";
+        }
+        else{
+            $error="Wrong email or password";
+        }
+    }
+   }
+
+?>
+
 <html>
     <title>Article List</title>
 <head>
@@ -48,16 +88,23 @@
                     <h3>Login</h3>
                     <form method="POST" action="login.php">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Email *" value="" />
+                            <input type="text" name="email" class="form-control" placeholder="Your Email *" value="" />
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Your Password *" value="" />
+                            <input type="password" name="password" class="form-control" placeholder="Your Password *" value="" />
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btnSubmit" value="Login" />
+                            <input type="submit" class="btnSubmit" name="submit" value="Login" />
                         </div>
                         <div class="form-group">
-                            <a href="#" class="ForgetPwd">Forget Password?</a>
+                           <?php
+
+                           if(isset($error)){
+                               echo'<p style="color:red">'. $error.'</p>';
+                           }
+
+                           $error="";
+                           ?>
                         </div>
                     </form>
                 </div>

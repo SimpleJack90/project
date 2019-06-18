@@ -22,8 +22,8 @@ class Users{
         
         $stmt=$this->conn->prepare($query);
         
-        $stmt.bindParam(':email',$email);
-        $stmt.bindParam(':password',$password);
+        $stmt->bindParam(':email',$email);
+        $stmt->bindParam(':password',$password);
 
         $stmt->execute();
 
