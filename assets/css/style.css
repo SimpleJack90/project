@@ -1,0 +1,92 @@
+
+/* Styles for article.php - beginning*/
+.front-img{
+
+    background-image: url("../images/collection/paper-623167_1920.jpg");
+
+    height:50%;
+    width:100%;
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+   
+}
+.marker{
+    height:100px;
+}
+
+.img-wrap {
+    margin-left:10px;
+    margin-right:10px;
+    
+}
+.img-wrap img{
+    width:100%;
+    height:30%;
+}
+.text-wrap{
+    margin-top:10px;
+}
+
+  
+  h1 {
+     margin-left:10px; 
+    font-family: Georgia, serif;
+    font-size: 28px;
+    font-weight: bold;
+    color:black;
+    letter-spacing: 1.4px;
+   
+    text-transform: uppercase;
+}
+p {
+    margin-left:10px;
+    margin-right:10px;
+    font-family: Verdana;
+    font-size: 15px;
+    color: #555555;
+    line-height: 1.5;
+    letter-spacing: .25px;
+}
+/* Styles for article.php - ending*/
+
+/* Styles for login.php - beginning*/
+.login-container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.login-form-1{
+    padding: 5%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form-1 h3{
+    text-align: center;
+    color: #333;
+}
+
+.login-container form{
+    padding: 10%;
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+.login-form-1 .btnSubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+}
+
+
+.login-form-1 .ForgetPwd{
+    color: #0062cc;
+    font-weight: 600;
+    text-decoration: none;
+}
+/* Styles for login.php - beginning*/
