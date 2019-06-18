@@ -46,7 +46,7 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-6 login-form-1">
                     <h3>Login</h3>
-                    <form>
+                    <form method="POST" action="login.php">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Your Email *" value="" />
                         </div>
