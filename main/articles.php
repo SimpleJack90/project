@@ -30,10 +30,26 @@ require_once '../navigation/nav_bar.php';
 
 <div class="marker"></div>
 
+<?php 
+      if($session->checkSession()){
+        ?>
+  <div class="container">
+    <div class="row">
+    <div class="col-md-2 col-sm-2"></div>
+    <div class="col-md-8 col-sm-8">
+    <a href="create_article.php" class="btn btn-primary btn-lg btn-block">Create new Article</a>
+    </div>
+    </div>
+  </div>
+      <?php } ?>
+
+<div class="marker"></div>
+
 <div class="container">
 <div class="row">
 
-    <div class="col">
+    <div class="col-md-2 col-sm-2"></div>
+    <div class="col-md-8 col-sm-8">
     
     
     <h1>Naslov naslov naslov</h1>
@@ -58,14 +74,15 @@ require_once '../navigation/nav_bar.php';
     </div>
 
     </div>
-
+    <div class="col-md-2 col-sm-2"></div>
     
 
 </div>
 
 <div class="row">
 
-    <div class="col">
+    <div class="col-md-2 col-sm-2"></div>
+    <div class="col-md-8 col-sm-8">
     
     
     <h1>Naslov naslov naslov</h1>
@@ -92,12 +109,13 @@ require_once '../navigation/nav_bar.php';
     </div>
 
     
-
+    <div class="col-md-2 col-sm-2"></div>
 </div>
 
 <div class="row">
 
-    <div class="col">
+    <div class="col-md-2 col-sm-2"></div>
+    <div class="col-md-8 col-sm-8">
     
     
     <h1>Naslov naslov naslov</h1>
@@ -125,7 +143,7 @@ require_once '../navigation/nav_bar.php';
 
     </div>
 
-    
+    <div class="col-md-8 col-sm-8">
 
 </div>
 
