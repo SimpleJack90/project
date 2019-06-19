@@ -3,6 +3,11 @@
 
 require_once '../config/database.php';
 require_once '../objects/users.php';
+require_once '../utilities/session.php';
+
+$session=new Session();
+
+
 
 
  $error;
@@ -27,6 +32,11 @@ if(isset($_POST['submit'])){
         $num=$stmt->rowCount();
 
         if($num>0){
+
+          $row=$stmt->fetch(PDO::FETCH_ASSOC);
+
+            $session->setSession($row['id'],$row['user_name']);
+
             header('Location: articles.php');
             $error="";
         }
@@ -48,39 +58,20 @@ if(isset($_POST['submit'])){
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-<div class="container">
-  <a class="navbar-brand" href="article.php">Article</a>
+<?php 
+require_once '../navigation/nav_bar.php';
+?>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  
+<?php 
+  if($session->checkSession()){
 
-  <div class="collapse navbar-collapse " id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto mx-5">
-      <li class="nav-item active">
-        <a class="nav-link" href="login.php">Login<span class="sr-only">(current)</span></a>
-      </li>
-    
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      
-    </ul>
-    
+  ?>
+  <div class="container login-container">
+  <div style="width:800px; color:blue; margin:80px auto;">
+    You are already logged in.
   </div>
   </div>
-</nav>
-
+  <?php }else{?>
 <div class="container login-container">
             <div class="row">
                 <div class="col-md-3"></div>
@@ -111,7 +102,9 @@ if(isset($_POST['submit'])){
             </div>
 </div>
 
-
+                          <?php 
+                        }
+                        ?>
 
 
 
