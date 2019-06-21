@@ -90,3 +90,34 @@ p {
     text-decoration: none;
 }
 /* Styles for login.php - beginning*/
+
+/* Styles for create_article.php - beginning*/
+
+input[type=file]{
+    display: inline;
+  }
+
+#image_preview{
+   
+    padding: 10px;
+  }
+#image_preview img{
+    width: 200px;
+    padding: 5px;
+  }
+
+.val_error{
+    color:red;
+    font-size:14px;
+    border-width:1px solid red;
+}
+.val_success{
+    color:green;
+    font-size:14px;
+    border-color:1px solid green ;
+}
+.val_allowed{
+    color:orange;
+    font-size:14px;
+    
+} 
