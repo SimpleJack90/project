@@ -118,23 +118,18 @@ $(document).ready(function(){
         });
 
         //if everything is filled correctly
-   $(document).on('click','#submitArticle',function(e){
+        $(document).on('click','#submitArticle',function(e){
 
-    e.preventDefault();
+        e.preventDefault();
 
     if(title.length>0 
      && title.length<=30 
      && !jQuery.isEmptyObject(main_image) 
      && body.length>0 
-     
-
-    ){
+     ){
         
       
-     $('#submitArticle').on('click' , function(e){
-
-
-        e.preventDefault();
+     
 
         
         var myform = document.getElementById("article-form");
@@ -154,8 +149,8 @@ $(document).ready(function(){
             },
             success: function (data) {
 
-
-               
+                
+                alert(data["error"]);
                
                 if(data['error']=='success'){
 
@@ -185,7 +180,7 @@ $(document).ready(function(){
              
          
          
-     })
+     
                
 
      }else {

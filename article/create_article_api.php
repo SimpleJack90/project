@@ -54,13 +54,14 @@ if(isset($_GET['submit']) && $_GET['submit']==true){
       
     }
     
+    
    
 
     if($type_error>0) {
     
    echo json_encode(
         ['error' => 'type_error','msg' => $type_error.' file have wrong type. Allowed types are:jpeg,jpg,bmp,png']);
-    return;
+    exit();
    } 
   
 
@@ -92,7 +93,7 @@ if(isset($_GET['submit']) && $_GET['submit']==true){
 
         for($i=0; $i<count($_FILES['file']['name'])-1; $i++){
            
-            $ext = explode('.', basename( $_FILES['file']['name'][$i]));
+           
             $target = $target_path.$_FILES['file']['name'][$i]; 
         
             if(move_uploaded_file($_FILES['file']['tmp_name'][$i], $target)) {
@@ -102,6 +103,17 @@ if(isset($_GET['submit']) && $_GET['submit']==true){
                // echo "Something went wrong! <br/>";
             } 
         } 
+
+        $target_main = "../uploads/".$id.'/';
+        $target = $target_main.$_FILES['main_image']['name']; 
+        if(move_uploaded_file($_FILES['main_image']['tmp_name'], $target)) {
+            // echo "The file has been uploaded successfully <br/>";
+         }
+         else{
+            // echo "Something went wrong! <br/>";
+         } 
+
+
        
 
 

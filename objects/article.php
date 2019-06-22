@@ -66,6 +66,34 @@ class Article{
         }
         return 1;
     }
+    public function Read(){
+        
+        //Select all query.
+        $query="SELECT *
+                FROM " . $this->table_name . "
+                ORDER BY id DESC";
+
+        //We prepare and execute statement.        
+        $stmt=$this->conn->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+    public function ReadOne($article_id){
+        $query="SELECT *
+        FROM " . $this->table_name . "
+        WHERE id=:id
+        ORDER BY id=:id DESC";
+
+        $stmt=$this->conn->prepare($query);
+
+        $stmt->bindParam(':id',$article_id);
+        
+        $stmt->execute();
+
+        return $stmt;
+    }
 }
 
 ?>
