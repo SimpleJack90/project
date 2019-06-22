@@ -46,10 +46,12 @@ require_once '../navigation/nav_bar.php';
     <div id="page_error">
             
         </div>
-    <form id="article-form" action="http://localhost/project/api/create_article_api.php" method="post" enctype="multipart/form-data">
+        <form id="article-form" enctype="multipart/form-data"  method="post">
+    
         <div class="form-group">
             <label for="title">Title:</label>
             <input type="text" name="title" class="form-control" id="title" placeholder="Enter article title:">
+            
         </div>
         <div id="title_error">
             
@@ -57,7 +59,7 @@ require_once '../navigation/nav_bar.php';
     
         <div class="form-group">
             <label for="front_image">Main image:</label>
-            <input type="file" name="main_image" class="form-control" id="front_image" placeholder="Upload front image:">
+            <input type="file" name="main_image" class="form-control" id="front_image" >
         </div>
         <div id="front_image_error">
             
@@ -73,7 +75,7 @@ require_once '../navigation/nav_bar.php';
 
         <div class="form-group file_imgs">
             <label for="file0">Article images:</label>
-            <input name="file[]" type="file" id="file1"class='file_add form-control' />
+            <input name="file[]" type="file" id="file1" class='file_add form-control' />
         </div>
 
         <div id="image_collection_error">
@@ -82,9 +84,16 @@ require_once '../navigation/nav_bar.php';
         <div  id="image_preview">
         
         </div class="form-group">
-        <div >
+        <div class="form-group">
         <input type="submit" id="submitArticle" class="btn btn-success btn-block form-control" name='submitArticle' value="Submit Article"/>
         </div>
+        <?php 
+        
+        
+        $id=$session->getEncodedId();
+
+        echo"<input type='hidden' id='user_id' name='user_id' value=".$id.">"; ?>
+        
     </form>
 
     

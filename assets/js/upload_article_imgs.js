@@ -14,7 +14,7 @@ $(document).ready(function(){
     $(document).on('change','.file_add',function(e){
 
         $(this).after("<input name='file[]' type='file' id='file"+id+"' class='file_add form-control'/>");
-        $(this).attr('disabled',true);
+       // $(this).attr('disabled',true);
 
         $('#image_preview')
         .append("<img width='200px' class='image_col' id='img"+i+"' height='200px' src='"+URL.createObjectURL(e.target.files[0])+"'>");
@@ -118,7 +118,7 @@ $(document).ready(function(){
         });
 
         //if everything is filled correctly
-   $('#submitArticle').on('click',function(e){
+   $(document).on('click','#submitArticle',function(e){
 
     e.preventDefault();
 
@@ -129,29 +129,62 @@ $(document).ready(function(){
      
 
     ){
+        
       
      $('#submitArticle').on('click' , function(e){
 
-         e.preventDefault();
-         var formData = new FormData($(this).parents('form')[0]);
-     
+
+        e.preventDefault();
+
+        
+        var myform = document.getElementById("article-form");
+       
+        var formData = new FormData(myform);
+
+
+       
+         console.log(formData);
          $.ajax({
-             url: 'http://localhost/project/api/create_article_api.php',
-             type: 'POST',
+            url: '../article/create_article_api.php?submit=true',
+            type: 'POST',
+            dataType:'JSON',
+            xhr: function() {
+                var myXhr = $.ajaxSettings.xhr();
+                return myXhr;
+            },
+            success: function (data) {
+
+
+               
+               
+                if(data['error']=='success'){
+
+                    $('#page_error').html(data['msg']);
+                    $('#page_error').addClass('val_success').removeClass('val_error');
+                    setTimeout(function(){
+                        location = '../main/articles.php';
+                      },2000);
+
+                }else if(data['error']=='error'){
+
+                    $('#page_error').html(data['msg']);
+                    $('#page_error').addClass('val_error').removeClass('val_success');
+                }else if(data['error']=='type_error'){
+                    $('#page_error').html(data['msg']);
+                    $('#page_error').addClass('val_error').removeClass('val_success');
+                }
+            },
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+
+         
              
-             xhr: function() {
-                 var myXhr = $.ajaxSettings.xhr();
-                 return myXhr;
-             },
-             success: function (data) {
-                 alert("Data Uploaded: "+data);
-             },
-             data: formData,
-             cache: false,
-             contentType: false,
-             processData: false
-         });
-         return false;
+             
+         
+         
      })
                
 

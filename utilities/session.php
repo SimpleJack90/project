@@ -34,6 +34,12 @@ class Session{
         session_destroy();
     }
 
+    public function getEncodedId(){
+
+        $str = $this->getId();
+        return urlencode(base64_encode($str));
+    }
+
 }
 
 
