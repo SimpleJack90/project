@@ -34,9 +34,9 @@ $article=new Article($db);
 
 
 
-if(isset($_GET['number_id'])){
+if(isset($_POST["id"])){
 
-    $id=decodeData($_GET['number_id']);
+    $id=$_POST["id"];
     
     if($article->Delete($id)){
 

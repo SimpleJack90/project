@@ -9,19 +9,28 @@ $(document).ready(function(){
 
     $('#btn_prev').attr('hidden',true);
 
+    var dataJsonOriginal={"page":current_page}
     $.ajax({
 
-        url: '../article/list_articles_api.php?page='+current_page,
+        url: '../article/list_articles_api.php?',
         type: 'POSt',
         dataType:'JSON',
-        
+        data:dataJsonOriginal,
         success: function (data) {
 
         article_size=data['records'][0]['size'];
 
+        console.log(current_page);
+        console.log(article_size);
+       
+        if(current_page==article_size){
+            $('#btn_next').attr('hidden',true);
+        }
+
         for(var i=0;i<data['records'].length;i++){
 
 
+            
         var str=data['records'][i]['body'].replace(/img[0-9]+/g,"");   
         var body=str.substr(0,100); 
        
@@ -39,6 +48,11 @@ $(document).ready(function(){
     
        
     });
+
+
+    
+
+    
 
     $(document).on('click','#btn_next',function(e){
         e.preventDefault();
@@ -69,13 +83,14 @@ $(document).ready(function(){
             
         }
         
+        var dataJson={"page":current_page}
 
         $.ajax({
 
-            url: '../article/list_articles_api.php?page='+current_page,
-            type: 'POSt',
+            url: '../article/list_articles_api.php',
+            type: 'POST',
             dataType:'JSON',
-            
+            data:dataJson,
             success: function (data) {
     
                
@@ -133,13 +148,13 @@ $(document).ready(function(){
           
         }
         
-
+        var dataJson={"page":current_page}
         $.ajax({
 
-            url: '../article/list_articles_api.php?page='+current_page,
-            type: 'POSt',
+            url: '../article/list_articles_api.php',
+            type: 'POST',
             dataType:'JSON',
-            
+            data:dataJson,
             success: function (data) {
     
                 

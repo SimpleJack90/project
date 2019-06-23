@@ -13,10 +13,10 @@ $db=$database->getConnection();
 
 $article=new Article($db);
 
-if(isset($_GET['page'])){
+if(isset($_POST["page"])){
 
 
-    $page_id=$_GET['page'];
+    $page_id=$_POST['page'];
 $stmt=$article->Read($page_id);
 $num=$stmt->rowCount();
 

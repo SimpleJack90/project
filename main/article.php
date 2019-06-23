@@ -41,21 +41,21 @@ $body=$row['body'];
 
 $i=0;
 
-$body="<p>".$body."</p>";
+$body="<p>".$body."</p><p>";
 
 $i=0;
 
 while($i<count($image_collection)-1){
 
-    $image="<br><div class='img-wrap'>
+    $image="</p><br><div class='img-wrap'>
         <img class='img-fluid' src='../uploads/".$row['id']."/".$image_collection[$i]."'>
-    </div><br>";
+    </div><br><p>";
 
     $body=preg_replace('/img[0-9]+/',$image,$body,1);
 
    $i++;
 }
-
+$body=$body.'</p>';
 
 
 
@@ -97,7 +97,7 @@ style="background-image:url('../uploads/<?php echo $row['id'];?>/<?php echo $row
     <h1><?php echo $row['title'];?></h1>
     <hr>
 
-    <?php echo $body;?>
+    <?php echo '<div>'.$body.'</div>';?>
    
     </div>
     <div class="col-md-2 col-sm-2"></div>
@@ -146,6 +146,7 @@ $(document).ready(function(){
 
     console.log('document loaded');
 
+    var id=<?php echo $row['id'];?> ;
 $(document).on('click','#delete_button',function(e){
 
 
@@ -153,17 +154,19 @@ $(document).on('click','#delete_button',function(e){
     e.preventDefault();
     
     console.log('button pressed');
+
+    var dataForm={"id":id}
     $.ajax({
 
-        url: "../article/delete_article_api.php?number_id=<?php echo encodeData($row['id']);?>",
+        url: "../article/delete_article_api.php",
         type: 'POST',
         dataType:'JSON',
-        
+        data:dataForm,
         success: function (data) {
 
             if(data['error']=='success'){ 
                 alert(data['msg']);
-               // location='../main/articles.php';
+                location='../main/articles.php';
             }else if(data['error']=='failure'){
                 alert(data['msg']);
             }else if(data['error']=='false_data'){
