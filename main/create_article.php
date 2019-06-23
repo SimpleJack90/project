@@ -2,6 +2,8 @@
 
 require_once '../utilities/session.php';
 
+require_once '../utilities/helper_functions.php';
+
 $session=new Session();
 
 if(!$session->checkSession()) header('Location: articles.php');
@@ -67,7 +69,8 @@ require_once '../navigation/nav_bar.php';
 
         <div class="form-group">
         <label for="bodyArea">Text:</label>
-        <textarea class="form-control" name="body" id="bodyArea" rows="3"></textarea>
+        <textarea class="form-control" name="body" id="bodyArea" rows="8" maxlength="20000"></textarea>
+        <div id="charNum"></div>
         </div>
         <div id="body_error">
             
@@ -90,7 +93,7 @@ require_once '../navigation/nav_bar.php';
         <?php 
         
         
-        $id=$session->getEncodedId();
+        $id=encodeData($session->getId());
 
         echo"<input type='hidden' id='user_id' name='user_id' value=".$id.">"; ?>
         

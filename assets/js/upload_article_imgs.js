@@ -8,13 +8,25 @@ $(document).ready(function(){
     var body="";
     var main_image="";
     var title="";
+    var fileExtension = ['jpeg', 'jpg', 'png','bmp'];
 
     //adding article images to preview and generating additional inputs
     //also adding selectors to text area
     $(document).on('change','.file_add',function(e){
 
+       
+
+        if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            
+            $('#image_collection_error').html("This file is not allowed. Allowed files types are: jpeg,jpg,png,bmp");
+            $('#image_collection_error').addClass('val_error').removeClass('val_success');
+        }else{
+
         $(this).after("<input name='file[]' type='file' id='file"+id+"' class='file_add form-control'/>");
        // $(this).attr('disabled',true);
+
+       $('#image_collection_error').html("Image successfully added");
+       $('#image_collection_error').addClass('val_success').removeClass('val_error');
 
         $('#image_preview')
         .append("<img width='200px' class='image_col' id='img"+i+"' height='200px' src='"+URL.createObjectURL(e.target.files[0])+"'>");
@@ -27,6 +39,7 @@ $(document).ready(function(){
 
         id++;
         i++;
+        }
         
         console.log(e.target.files[0].name.length);
     });
@@ -62,10 +75,18 @@ $(document).ready(function(){
         }
         $("#front_image").change(function(e){
 
-        if(document.getElementById("front_image").files.length == 0){
+
+
+        if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            
+            $('#front_image_error').html("This file is not allowed. Allowed files types are: jpeg,jpg,png,bmp");
+            $('#front_image').addClass('val_error').removeClass('val_success');
+        }
+
+        else if(document.getElementById("front_image").files.length == 0){
     
                 
-            $('#front_image_error').html("Image not selected, please select image.");
+            
             $('#front_image_error').addClass('val_error').removeClass('val_success');
             $('#front_image').addClass('val_error').removeClass('val_success');
         }
@@ -105,7 +126,7 @@ $(document).ready(function(){
         $("#bodyArea").on('focusout',function(){
         body=$('#bodyArea').val();
 
-       if(body.length>0) 
+       if(body.length>0 && body.length<=20000) 
        {
             $('#body_error').html('Text successfully added')
             $('#body_error').removeClass('val_error').addClass('val_success').removeClass('val_allowed');
@@ -117,6 +138,23 @@ $(document).ready(function(){
         }
         });
 
+        var currentLength=0;
+
+        //show number of characters
+       $(document).on('keyup','#bodyArea',function(){
+           console.log('aaa');
+           var maxLength=$(this).attr('maxlength');
+           currentLength=$(this).val().length;
+           if( currentLength >= maxLength ){
+            $('#charNum').html("Maximum characters reached!");
+            $('#charNum').addClass('val_error').removeClass('val_success');
+        }else{
+            $('#charNum').html(maxLength - currentLength + " chars left");
+            $('#charNum').addClass('val_success').removeClass('val_error');
+        }
+       })
+
+
         //if everything is filled correctly
         $(document).on('click','#submitArticle',function(e){
 
@@ -126,6 +164,7 @@ $(document).ready(function(){
      && title.length<=30 
      && !jQuery.isEmptyObject(main_image) 
      && body.length>0 
+     && body.length<20000
      ){
         
       

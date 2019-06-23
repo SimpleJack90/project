@@ -1,5 +1,20 @@
 <?php
 
+require_once '../utilities/session.php';
+
+require_once '../utilities/helper_functions.php';
+
+$session=new Session();
+
+if(!$session->checkSession() && isset($_GET['number_id'])) {
+
+    header('Location: articles.php');
+}
+
+?>
+
+<?php
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
@@ -21,7 +36,7 @@ $article=new Article($db);
 
 if(isset($_GET['number_id'])){
 
-    $id=$_GET['number_id'];
+    $id=decodeData($_GET['number_id']);
     
     if($article->Delete($id)){
 

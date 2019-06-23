@@ -4,6 +4,7 @@ require_once '../utilities/session.php';
 
 require_once '../config/database.php';
 require_once '../objects/article.php';
+require_once '../utilities/helper_functions.php';
 
 
 
@@ -148,12 +149,13 @@ $(document).ready(function(){
 $(document).on('click','#delete_button',function(e){
 
 
+    
     e.preventDefault();
     
     console.log('button pressed');
     $.ajax({
 
-        url: "../article/delete_article_api.php?number_id=<?php echo $row['id'];?>",
+        url: "../article/delete_article_api.php?number_id=<?php echo encodeData($row['id']);?>",
         type: 'POST',
         dataType:'JSON',
         
@@ -161,7 +163,7 @@ $(document).on('click','#delete_button',function(e){
 
             if(data['error']=='success'){ 
                 alert(data['msg']);
-                location='../main/articles.php';
+               // location='../main/articles.php';
             }else if(data['error']=='failure'){
                 alert(data['msg']);
             }else if(data['error']=='false_data'){

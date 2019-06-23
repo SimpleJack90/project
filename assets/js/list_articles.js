@@ -25,9 +25,10 @@ $(document).ready(function(){
         var str=data['records'][i]['body'].replace(/img[0-9]+/g,"");   
         var body=str.substr(0,100); 
        
-              
+        var id=encodeURIComponent(data['records'][i]['id']);
+             
         $('#article-data').append("<h1><a href='../main/article.php?number_id="+data['records'][i]['id']+"'>"+data['records'][i]['title']+"</a></h1><hr>"
-        +"<div class='img-wrap'><a href='../main/article.php?number_id="+data['records'][i]['id']+"'><img class='img-fluid' src='../uploads/"+data['records'][i]['id']+"/"+data['records'][i]['main_image']+"'></a></div>"
+        +"<div class='img-wrap'><a href='../main/article.php?number_id="+id+"'><img class='img-fluid' src='../uploads/"+data['records'][i]['id']+"/"+data['records'][i]['main_image']+"'></a></div>"
         +"<div class='text-wrap'><hr><p>"+body+"</p>"
         +"<p>by "+data['records'][i]['user_name']+" on "+data['records'][i]['created']+"</p></div>");
 

@@ -18,6 +18,8 @@ require_once '../config/database.php';
 
 require_once '../objects/article.php';
 
+require_once '../utilities/helper_functions.php';
+
 $database=new DatabaseConnection();
 $db=$database->getConnection();
 
@@ -28,7 +30,7 @@ if(isset($_GET['submit']) && $_GET['submit']==true){
 
     //decoding user id
     $user_id = $_POST['user_id'];
-    $decoded_id = base64_decode(urldecode($user_id));
+    $decoded_id = decodeData($user_id);
 
     //taking title and body 
     $title=$_POST['title'];

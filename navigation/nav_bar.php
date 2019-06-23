@@ -22,7 +22,7 @@
          <?php 
          echo $session->getUserName();
          echo '#';
-         echo $session->getId();
+         echo substr(uniqid($session->getId()),0,4);
          ?>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
