@@ -13,8 +13,11 @@ $db=$database->getConnection();
 
 $article=new Article($db);
 
+if(isset($_GET['page'])){
 
-$stmt=$article->Read();
+
+    $page_id=$_GET['page'];
+$stmt=$article->Read($page_id);
 $num=$stmt->rowCount();
 
 if($num>0){
@@ -25,13 +28,17 @@ if($num>0){
 
     //We iterate through and fetch data
 
+    
     while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
 
+        
         //create variable that will hold one row of data and push it to $article_arr.
 
         $collection=explode(";",$row['image_collection']);
         
         $article_item=array(
+            "size"=>$row['size'],
+            "user_name"=>$row['user_name'],
             "id"=>$row['id'],
             "title"=>$row['title'],
             "body"=>html_entity_decode($row['body']),
@@ -61,5 +68,6 @@ if($num>0){
 
     echo json_encode(array("messsage"=>"No products found."));
 
+}
 }
 ?>

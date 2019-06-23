@@ -66,25 +66,50 @@ class Article{
         }
         return 1;
     }
-    public function Read(){
+    public function Count(){
+        $query="SELECT * FROM ".$this->table_name;
+
+        $stmt=$this->conn->prepare($query);
+
+        $stmt->execute();
+
+        $num=$stmt->rowCount();
+
+        return $num;
+    }
+    public function Read($page_id){
         
+        $page_size=3;
+
+        $offset = ($page_id - 1)  * $page_size;
         //Select all query.
-        $query="SELECT *
-                FROM " . $this->table_name . "
-                ORDER BY id DESC";
+        $query="SELECT :pages as size,u.user_name , a.id, a.title, a.body, a.main_image, a.image_collection,a.created,a.user_id
+                FROM " . $this->table_name . " a LEFT JOIN users u ON a.user_id=u.id
+                ORDER BY a.id DESC
+                LIMIT :offset,:page_size";
+
+
+        $size=$this->Count();
+
+        $pages = ceil($size / $page_size);
 
         //We prepare and execute statement.        
         $stmt=$this->conn->prepare($query);
+
+        $stmt->bindParam(':offset',$offset,PDO::PARAM_INT);
+        $stmt->bindParam(':page_size',$page_size,PDO::PARAM_INT);
+        $stmt->bindParam(':pages',$pages,PDO::PARAM_INT);
 
         $stmt->execute();
 
         return $stmt;
     }
     public function ReadOne($article_id){
+
         $query="SELECT *
         FROM " . $this->table_name . "
         WHERE id=:id
-        ORDER BY id=:id DESC";
+        ";
 
         $stmt=$this->conn->prepare($query);
 
@@ -93,6 +118,24 @@ class Article{
         $stmt->execute();
 
         return $stmt;
+    }
+
+    public function Delete($id){
+
+        $query="DELETE FROM ".$this->table_name." WHERE id=:id";
+
+        $stmt=$this->conn->prepare($query);
+
+        $stmt->bindParam(":id",$id);
+
+        if($stmt->execute()){
+
+           
+
+            return true;
+        }
+        return false;
+
     }
 }
 

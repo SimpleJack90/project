@@ -50,11 +50,23 @@ require_once '../navigation/nav_bar.php';
 
     <div class="col-md-2 col-sm-2"></div>
     <div class="col-md-8 col-sm-8" id="article-data">
+
+
     </div>
     <div class="col-md-2 col-sm-2"></div>
-    
+    </div>
+  <div class="row">
+  <div class="col-md-5 col-sm-5"></div>
+    <div class="col-md-2 col-sm-2" >
+   <a href="#"  class="btn btn-primary" id="btn_prev">Prev</a>
+  <span id="page" class="btn btn-primary">1</span>
+  <a href="#" class="btn btn-primary" id="btn_next">Next</a>
 
-</div>
+
+    </div>
+    
+    
+  </div>
 
 
 

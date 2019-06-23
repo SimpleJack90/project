@@ -119,8 +119,8 @@ style="background-image:url('../uploads/<?php echo $row['id'];?>/<?php echo $row
     <div class="row">
     <div class="col-md-2 col-sm-2"></div>
     <div class="col-md-8 col-sm-8">
-    <a href="create_article.php" class="btn btn-success btn-lg btn-block">Edit</a>
-    <a href="create_article.php" class="btn btn-danger btn-lg btn-block">Delete</a>
+    <a href="edit_article.php" class="btn btn-success btn-lg btn-block" >Edit</a>
+    <button type="submit" class="btn btn-danger btn-lg btn-block" id="delete_button">Delete</button>
     </div>
     </div>
   </div>
@@ -138,9 +138,48 @@ style="background-image:url('../uploads/<?php echo $row['id'];?>/<?php echo $row
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
 <script>
 
+$(document).ready(function(){
 
+    console.log('document loaded');
+
+$(document).on('click','#delete_button',function(e){
+
+
+    e.preventDefault();
+    
+    console.log('button pressed');
+    $.ajax({
+
+        url: "../article/delete_article_api.php?number_id=<?php echo $row['id'];?>",
+        type: 'POST',
+        dataType:'JSON',
+        
+        success: function (data) {
+
+            if(data['error']=='success'){ 
+                alert(data['msg']);
+                location='../main/articles.php';
+            }else if(data['error']=='failure'){
+                alert(data['msg']);
+            }else if(data['error']=='false_data'){
+                alert(data['msg']);
+            }
+        },
+    
+       
+    });
+
+
+});
+
+
+
+
+
+});
 </script>
 </body>
 
