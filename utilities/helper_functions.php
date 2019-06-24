@@ -22,4 +22,12 @@ function decodeData($data){
 return base64_decode(urldecode($data));
 }
 
+function removeFiles($directory){
+    foreach(glob("{$directory}/*") as $file)
+    {
+        
+            unlink($file);
+        
+    }
+}
 ?>

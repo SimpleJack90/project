@@ -177,9 +177,11 @@ style="background-image:url('../uploads/<?php echo $row['id'];?>/<?php echo $row
         <?php 
         
         
-        $id=encodeData($session->getId());
+        $id=$session->getId();
 
-        echo"<input type='hidden' id='user_id' name='article_id' value=".$row['id'].">"; ?>
+        echo"<input type='hidden' id='article_id' name='article_id' value=".$row['id'].">"; 
+        echo"<input type='hidden' id='user_id' name='user_id' value=".$id.">"; 
+        ?>
         
     </form>
 
@@ -317,8 +319,7 @@ style="background-image:url('../uploads/<?php echo $row['id'];?>/<?php echo $row
         var formData = new FormData(myform);
                console.log(files);
 
-                for(var i=0;i<files.length;i++)
-             formData.append('file[]', files[i]);
+               
        
 
  console.log(formData);

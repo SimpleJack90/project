@@ -12,6 +12,8 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 //require files
 
+require_once '../utilities/helper_functions.php';
+
 require_once '../config/database.php';
 
 require_once '../objects/article.php';
@@ -23,32 +25,53 @@ $db=$database->getConnection();
 
 $article=new Article($db);
 
-var_dump($_POST);
 
-if(isset($_GET['']) && $_GET['']==true){
 
+
+if(isset($_GET['submit']) && $_GET['submit']==true){
+
+    $files_not_to_be_deleted=['.','..'];
 
     //decoding user id
-    $user_id = $_POST['user_id'];
-    $decoded_id = decodeData($user_id);
+    $article_id = $_POST['article_id'];
+   
+    $user_id=$_POST['user_id'];
 
     //taking title and body 
     $title=$_POST['title'];
     $body=$_POST['body'];
 
     //taking main_image
-    $main_image=$_FILES['main_image']['name'];
-    $tmp_main_image=$_FILES['main_image']['tmp_name'];
+    if(isset($_POST['main_image'])){
+        $main_image=$_POST['main_image'];
+        array_push($files_not_to_be_deleted,$_POST['main_image']);
+
+    }else {
+        $main_image=$_FILES['main_image']['name'];
+        $tmp_main_image=$_FILES['main_image']['tmp_name'];
+
+       
+    }
+    $image_collection="";
+
+    if(isset($_POST['current_images'])){
+        for($i=0;$i<count($_POST['current_images']);$i++){
+
+            $image_collection=$image_collection.$_POST['current_images'][$i].";";
+            array_push($files_not_to_be_deleted,$_POST['current_images']);
+
+        }
+    }
 
     //making string of article images, ; between each two.
-    $image_collection="";
+    
     $allowed_types=['image/jpeg','image/jpg','image/png','image/bmp'];
     $type_error=0;
    
-    for($i=0; $i<count($_FILES['file']['name'])-1; $i++){
-        $image_collection=$image_collection.$_FILES['file']['name'][$i].";";
+    for($i=0; $i<count($_FILES['new_images']['name'])-1; $i++){
+        $image_collection=$image_collection.$_FILES['new_images']['name'][$i].";";
         
-        if(in_array($_FILES['file']['type'][$i],$allowed_types)) 
+        if(in_array($_FILES['new_images']['type'][$i],$allowed_types)) 
         {
             
         }else $type_error++;
@@ -70,43 +93,55 @@ if(isset($_GET['']) && $_GET['']==true){
     //created at
     $date=date("Y-m-d H:i:s");
 
-    $article->BindData($title,$main_image,$body,$image_collection,$date,$decoded_id);
+    $article->BindData($title,$main_image,$body,$image_collection,$date,$user_id);
     
    
 
     
-    if($article->Create()){
+    if($article->Update($article_id)){
 
         //Set response code to  201 - Created.
         http_response_code(201);
 
-        
-       $id=$article->recentlyCreated();
+        $dir='../uploads/'.$article_id;
+        $get_all_files=scandir($dir);
 
-        if (!file_exists('../'.$id)) {
-            mkdir('../uploads/'.$id.'/', 0777, true);
+        for($i=0;$i<count($get_all_files);$i++){
+            $file=$get_all_files[$i];
 
-          //  echo 'creating directory';
+            if(in_array($file,$files_not_to_be_deleted)){
+
+            }else{
+                unlink($dir.'/'.$file);
+            }
         }
-
-        $target_path = "../uploads/".$id.'/';
-        
         
        
 
-        for($i=0; $i<count($_FILES['file']['name'])-1; $i++){
-           
-           
-            $target = $target_path.$_FILES['file']['name'][$i]; 
+       
+
+        $target_path = "../uploads/".$article_id.'/';
         
-            if(move_uploaded_file($_FILES['file']['tmp_name'][$i], $target)) {
+        
+        if($_FILES["new_images"]["error"] == 4 || $_FILES["new_images"]["error"]==0 ){
+
+        }else{
+
+        for($i=0; $i<count($_FILES['new_images']['name'])-1; $i++){
+           
+           
+            $target = $target_path.$_FILES['new_images']['name'][$i]; 
+        
+            if(move_uploaded_file($_FILES['new_images']['tmp_name'][$i], $target)) {
                // echo "The file has been uploaded successfully <br/>";
             }
             else{
                // echo "Something went wrong! <br/>";
             } 
         } 
+    }
 
+        if(!isset($_POST['main_image'])){
         $target_main = "../uploads/".$id.'/';
         $target = $target_main.$_FILES['main_image']['name']; 
         if(move_uploaded_file($_FILES['main_image']['tmp_name'], $target)) {
@@ -116,12 +151,12 @@ if(isset($_GET['']) && $_GET['']==true){
             // echo "Something went wrong! <br/>";
          } 
 
-
+        }
        
 
 
         //Notify user
-        echo json_encode(['error' => 'success', 'msg' => 'Article was created!']);
+        echo json_encode(['error' => 'success', 'msg' => 'Article was updated!']);
     }
     //Not able to create product
     else {

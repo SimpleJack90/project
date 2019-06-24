@@ -189,6 +189,30 @@ class Article{
         return false;
 
     }
+    public function Update($article_id){
+
+        $query="UPDATE ".$this->table_name."  
+                SET title=:title,main_image=:main_image,
+                body=:body,image_collection=:image_collection,created=:created,user_id=:user_id
+                WHERE id=:article_id";
+
+        $stmt=$this->conn->prepare($query);
+         
+       
+
+        $stmt->bindParam(":title",$this->title);
+        $stmt->bindParam(":main_image",$this->main_image);
+        $stmt->bindParam(":image_collection",$this->image_collection);
+        $stmt->bindParam(":body",$this->body);
+        $stmt->bindParam(":created",$this->created);
+        $stmt->bindParam(":user_id",$this->user_id);
+        $stmt->bindParam(":article_id",$article_id);
+
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
    
 }
 

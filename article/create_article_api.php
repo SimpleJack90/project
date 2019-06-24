@@ -25,6 +25,7 @@ $db=$database->getConnection();
 
 $article=new Article($db);
 
+
 if(isset($_GET['submit']) && $_GET['submit']==true){
 
 
