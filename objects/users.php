@@ -30,6 +30,20 @@ class Users{
         return $stmt;
 
     }
+    public function Search($term){
+
+        $query="SELECT * FROM ".$this->table_name." WHERE user_name LIKE :term";
+
+        //Preparing statements and binding
+        $stmt=$this->conn->prepare($query);
+        $term=$term.'%';
+        $stmt->bindParam(":term",$term);
+        
+        //Execute prepared statement
+        $stmt->execute();
+
+        return $stmt;
+    }
 }
 
 ?>

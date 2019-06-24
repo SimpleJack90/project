@@ -104,6 +104,58 @@ class Article{
 
         return $stmt;
     }
+    public function CountArticlePerUser($user_name){
+        
+        
+        $query="SELECT * FROM ".$this->table_name." a JOIN users u on a.user_id=u.id
+                    WHERE user_name=:user_name 
+                    ORDER BY a.id";
+
+
+        $stmt=$this->conn->prepare($query);
+
+        $stmt->bindParam(":user_name",$user_name);
+
+        $stmt->execute();
+            
+        
+
+       
+        $num=$stmt->rowCount();
+
+        return $num;
+    }
+
+    public function ReadUser($page_id,$user){
+        
+        $page_size=3;
+
+        $offset = ($page_id - 1)  * $page_size;
+        //Select all query.
+        $query="SELECT :pages as size,u.user_name , a.id, a.title, a.body, a.main_image, a.image_collection,a.created,a.user_id
+                FROM " . $this->table_name . " a LEFT JOIN users u ON a.user_id=u.id
+                WHERE user_name=:user
+                ORDER BY a.id DESC
+                LIMIT :offset,:page_size";
+
+
+        $size=$this->CountArticlePerUser($user);
+
+        $pages = ceil($size / $page_size);
+
+        //We prepare and execute statement.        
+        $stmt=$this->conn->prepare($query);
+
+        $stmt->bindParam(':offset',$offset,PDO::PARAM_INT);
+        $stmt->bindParam(':page_size',$page_size,PDO::PARAM_INT);
+        $stmt->bindParam(':pages',$pages,PDO::PARAM_INT);
+        $stmt->bindParam(':user',$user);
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+
     public function ReadOne($article_id){
 
         $query="SELECT *
@@ -137,6 +189,7 @@ class Article{
         return false;
 
     }
+   
 }
 
 ?>

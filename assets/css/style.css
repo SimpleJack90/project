@@ -121,3 +121,43 @@ input[type=file]{
     font-size:14px;
     
 } 
+/* search form*/
+.search_box{
+        
+        
+    width:300px;
+    position: relative;
+    display:inline-block;
+    font-size:14px;
+}
+.search_box input[type="text"]{
+    height:32px;
+    padding: 5px 10px;
+    border:1px solid #CCCCCC;
+    font-size:14px;
+}
+.result{
+    position:absolute;
+    z-index:999;
+    top:100%;
+    left:0;
+
+}
+.search_box input[type="text"], .result{
+    width:100%;
+    box-sizing:border-box;
+}
+.result p {
+    margin:0;
+    padding:7px 10px;
+    border:1px solid #CCCCCC;
+    border-top: none;
+    border-radius: 5%;
+    cursor: pointer;
+    color: #555555;
+    
+    background-color: white;
+}
+.result p:hover{
+    background: #f2f2f2;
+}

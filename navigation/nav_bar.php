@@ -17,14 +17,15 @@
     <?php 
       if($session->checkSession()){
         ?>
+     
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          <?php 
          echo $session->getUserName();
-         echo '#';
-         echo substr(uniqid($session->getId()),0,4);
+       
          ?>
         </a>
+
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           
           <a class="dropdown-item" href="#">Profile</a>
