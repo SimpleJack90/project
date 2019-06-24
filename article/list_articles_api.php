@@ -75,7 +75,7 @@ if($num>0){
 
     //Tell the user no products were found
 
-    echo json_encode(array("messsage"=>"No products found."));
+    echo json_encode(array("messsage"=>"No Article found."));
 
 }
 }

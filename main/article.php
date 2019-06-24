@@ -121,7 +121,7 @@ style="background-image:url('../uploads/<?php echo $row['id'];?>/<?php echo $row
     <div class="row">
     <div class="col-md-2 col-sm-2"></div>
     <div class="col-md-8 col-sm-8">
-    <a href="edit_article.php" class="btn btn-success btn-lg btn-block" >Edit</a>
+    <a href="update.php?article_id=<?php echo $row['id'];?>" class="btn btn-success btn-lg btn-block" >Edit</a>
     <button type="submit" class="btn btn-danger btn-lg btn-block" id="delete_button">Delete</button>
     </div>
     </div>

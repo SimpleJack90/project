@@ -2,18 +2,23 @@ $(document).ready(function(){
 
     $(document).on('click','#search_user',function(e){
         e.preventDefault();
-        alert("clicked");
+        
     
        var input=$('#search_bar').val()
     
         if(input==""){
-          alert("empty");
+         
+            console.log('empty');
+            
+            $('#search_error').html("Please enter name of the user:");
+            $('#search_error').addClass('val_error').removeClass('val_success');
 
+            console.log($('#search_error').html());
          
         }
         else{
-          alert("not empty");
-    
+        
+            $('#search_error').html("");
     
         var current_page_user=1;
         
@@ -33,7 +38,13 @@ $(document).ready(function(){
             data:dataJsonOriginal,
             success: function (data) {
     
-            article_size=data['records'][0]['size'];
+              
+                if(data['error']=='error'){
+                    $('#search_error').html(data['data']);
+                    $('#search_error').addClass('val_error').removeClass('val_success');
+                }
+                else{
+                article_size=data['records'][0]['size'];
     
             console.log(current_page_user);
             console.log(article_size);
@@ -67,6 +78,8 @@ $(document).ready(function(){
                     
                     $('#btn_next_user').attr('hidden',true);
                 }
+
+            }
     
             },
         

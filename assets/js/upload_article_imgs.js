@@ -158,14 +158,15 @@ $(document).ready(function(){
         //if everything is filled correctly
         $(document).on('click','#submitArticle',function(e){
 
+             
         e.preventDefault();
 
-    if(title.length>0 
-     && title.length<=30 
-     && !jQuery.isEmptyObject(main_image) 
-     && body.length>0 
-     && body.length<20000
-     ){
+        if(title.length>0 
+         && title.length<=30 
+        && !jQuery.isEmptyObject(main_image) 
+        && body.length>0 
+        && body.length<20000
+        ){
         
       
      

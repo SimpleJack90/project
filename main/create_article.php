@@ -69,6 +69,7 @@ require_once '../navigation/nav_bar.php';
 
         <div class="form-group">
         <label for="bodyArea">Text:</label>
+        
         <textarea class="form-control" name="body" id="bodyArea" rows="8" maxlength="20000"></textarea>
         <div id="charNum"></div>
         </div>

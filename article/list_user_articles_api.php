@@ -28,7 +28,7 @@ $user=$_POST['user'];
 $stmt=$article->ReadUser($page_id,$user);
 $num=$stmt->rowCount();
 
-if($num>0){
+    if($num>0){
     //Define array where we gonna place our data
     $article_arr=array();
 
@@ -67,16 +67,16 @@ if($num>0){
     //Show data in JSON format
 
     echo json_encode($article_arr);
-}else{
+    }else{
     //Setting response code to 404 - Not Found
 
-    http_response_code(404);
+        
 
     //Tell the user no products were found
 
-    echo json_encode(array("messsage"=>"No products found."));
+    echo json_encode(['error'=>'error','data'=>'No articles found by that user, try again!']);
 
-}
+    }
 }
 
 

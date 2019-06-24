@@ -43,7 +43,7 @@ require_once '../navigation/nav_bar.php';
       <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" id="search_bar" 
       placeholder="Search users..." autocomplete="off" aria-label="Search">
-      <div id="#search_error"></div>
+      <div id="search_error"></div>
       
 
       <div class="result"></div>
