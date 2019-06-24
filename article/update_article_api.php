@@ -58,6 +58,7 @@ if(isset($_GET['submit']) && $_GET['submit']==true){
         for($i=0;$i<count($_POST['current_images']);$i++){
 
             $image_collection=$image_collection.$_POST['current_images'][$i].";";
+
             array_push($files_not_to_be_deleted,$_POST['current_images']);
 
         }
@@ -142,7 +143,7 @@ if(isset($_GET['submit']) && $_GET['submit']==true){
     }
 
         if(!isset($_POST['main_image'])){
-        $target_main = "../uploads/".$id.'/';
+        $target_main = "../uploads/".$article_id.'/';
         $target = $target_main.$_FILES['main_image']['name']; 
         if(move_uploaded_file($_FILES['main_image']['tmp_name'], $target)) {
             // echo "The file has been uploaded successfully <br/>";
